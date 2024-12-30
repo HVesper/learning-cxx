@@ -1,5 +1,5 @@
 #include "../exercise.h"
-
+int globalvar = 20;
 // READ: 复制构造函数 <https://zh.cppreference.com/w/cpp/language/copy_constructor>
 // READ: 函数定义（显式弃置）<https://zh.cppreference.com/w/cpp/language/function>
 
@@ -10,17 +10,27 @@ class DynFibonacci {
 
 public:
     // TODO: 实现动态设置容量的构造器
-    DynFibonacci(int capacity): cache(new ?), cached(?) {}
+    DynFibonacci(int capacity): cache(new size_t[capacity]{0 , 1}), cached(2) {
+    }
 
     // TODO: 实现复制构造器
-    DynFibonacci(DynFibonacci const &) = delete;
+    DynFibonacci(DynFibonacci const & fib_) {
+        this->cache = new size_t[fib_.cached];
+        for (int i = 0; i < fib_.cached;i ++ ) {
+            this->cache[i] = fib_.cache[i];
+        }
+        this->cached = fib_.cached;
+    }
 
     // TODO: 实现析构器，释放缓存空间
-    ~DynFibonacci();
+    ~DynFibonacci() {
+        if(cache != NULL)
+            delete cache;
+    }
 
     // TODO: 实现正确的缓存优化斐波那契计算
     size_t get(int i) {
-        for (; false; ++cached) {
+        for (; cached <= i; ++cached) {
             cache[cached] = cache[cached - 1] + cache[cached - 2];
         }
         return cache[i];
@@ -38,10 +48,16 @@ public:
     }
 };
 
+int& foo() {
+	int globalvar = 2;
+    return globalvar;
+}
+
 int main(int argc, char **argv) {
     DynFibonacci fib(12);
     ASSERT(fib.get(10) == 55, "fibonacci(10) should be 55");
     DynFibonacci const fib_ = fib;
-    ASSERT(fib_.get(10) == fib.get(10), "Object cloned");
+    std::cout << fib_.get(10) << '\n';
+    ASSERT(fib_.get(10) == fib.get(10), "Object cloned")
     return 0;
 }

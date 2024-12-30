@@ -42,14 +42,14 @@ int main(int argc, char **argv) {
     C c;
     D d;
 
-    ASSERT(a.virtual_name() == '?', MSG);
-    ASSERT(b.virtual_name() == '?', MSG);
-    ASSERT(c.virtual_name() == '?', MSG);
-    ASSERT(d.virtual_name() == '?', MSG);
-    ASSERT(a.direct_name() == '?', MSG);
-    ASSERT(b.direct_name() == '?', MSG);
-    ASSERT(c.direct_name() == '?', MSG);
-    ASSERT(d.direct_name() == '?', MSG);
+    ASSERT(a.virtual_name() == 'A', MSG);
+    ASSERT(b.virtual_name() == 'B', MSG);
+    ASSERT(c.virtual_name() == 'C', MSG);
+    ASSERT(d.virtual_name() == 'C', MSG);
+    ASSERT(a.direct_name() == 'A', MSG);
+    ASSERT(b.direct_name() == 'B', MSG);
+    ASSERT(c.direct_name() == 'C', MSG);
+    ASSERT(d.direct_name() == 'D', MSG);
 
     A &rab = b;
     B &rbc = c;
